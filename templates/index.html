@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>收支紀錄系統</title>
+</head>
+<body>
+    <h1>收支紀錄</h1>
+    <p>總收入：{{ income }} 元</p>
+    <p>總支出：{{ expense }} 元</p>
+    <a href="/add">新增紀錄</a>
+    <hr>
+    <table border="1">
+        <tr>
+            <th>金額</th><th>類型</th><th>備註</th><th>時間</th>
+        </tr>
+        {% for r in records %}
+        <tr>
+            <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+            <td>{{ r[3] }}</td>
+            <td>{{ r[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
