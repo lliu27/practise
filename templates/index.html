@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
+    <meta charset="UTF-8">
     <title>收支紀錄系統</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>收支紀錄</h1>
@@ -18,7 +18,7 @@
         {% for r in records %}
         <tr>
             <td>{{ r[1] }}</td>
-            <td>{{ r[2] }}</td>
+            <td class="{{ 'income' if r[2] == '收入' else 'expense' }}">{{ r[2] }}</td>
             <td>{{ r[3] }}</td>
             <td>{{ r[4] }}</td>
         </tr>

@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
+import pytz
+
 from datetime import datetime
 
 app = Flask(__name__)
@@ -27,6 +29,14 @@ def index():
         c = conn.cursor()
         c.execute("SELECT * FROM records ORDER BY timestamp DESC")
         records = c.fetchall()
+
+        # 轉換 timestamp 成台灣時間
+        taiwan = pytz.timezone('Asia/Taipei')
+        records = [
+            (r[0], r[1], r[2], r[3], 
+             datetime.strptime(r[4], "%Y-%m-%d %H:%M:%S").replace(tzinfo=pytz.utc).astimezone(taiwan).strftime("%Y/%m/%d %H:%M"))
+            for r in records
+        ]
 
         c.execute("SELECT SUM(amount) FROM records WHERE type='收入'")
         income = c.fetchone()[0] or 0
